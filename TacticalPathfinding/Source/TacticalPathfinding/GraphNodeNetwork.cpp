@@ -8,7 +8,6 @@ UGraphNodeNetwork::UGraphNodeNetwork()
 void UGraphNodeNetwork::BeginPlay()
 {
 	Super::BeginPlay();
-	CreateNetwork();
 }
 
 void UGraphNodeNetwork::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
