@@ -27,10 +27,10 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere)
-		float resolution;
+	float resolution;
 
 	UPROPERTY(VisibleAnywhere)
-		TArray<UGraphNode*> nodes;
+	TArray<UGraphNode*> nodes;
 
 	FVector bottomLeft;
 	FVector topRight;

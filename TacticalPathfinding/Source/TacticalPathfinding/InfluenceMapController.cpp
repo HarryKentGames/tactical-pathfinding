@@ -210,7 +210,7 @@ void UInfluenceMapController::DebugDraw()
 		FColor blue = FColor(0, 0, 255);
 		FColor cyan = FColor(0, 255, 255);
 
-		GetPropagatorInfluenceMap(propagators[0], influenceMap);
+		GetPropagatorEnemyInfluenceMap(propagators[0], influenceMap, propagators[0]->GetEnemyTeams());
 		
 		NormaliseInfluenceMap(influenceMap);
 
