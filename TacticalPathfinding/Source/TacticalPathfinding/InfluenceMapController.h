@@ -44,6 +44,10 @@ public:
 	void GetVulnerabilityMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> alliedTeamMask, TArray<Team> enemyTeamMask);
 	void GetDirectedVulnerabilityMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> alliedTeamMask, TArray<Team> enemyTeamMask);
 
+	void GetPropagatorLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap);
+	void GetPropagatorAllyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask);
+	void GetPropagatorEnemyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask);
+
 	void DebugDraw();
 
 protected:

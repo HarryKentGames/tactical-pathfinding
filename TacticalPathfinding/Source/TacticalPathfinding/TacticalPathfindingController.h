@@ -12,7 +12,7 @@ struct PathfindingDebugInformation
 {
 	float timeTaken;
 	TArray<const UGraphNode*> visitedNodes;
-	TArray<const UGraphNode*> path;
+	TArray<UPathNode*> path;
 };
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -27,10 +27,11 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void RunPathfinding(int startIndex, int endIndex, TArray<TacticalInformation*> tacticalInformations);
+	TArray<UPathNode*> RunPathfinding(int startIndex, int endIndex, TArray<TacticalInformation*> tacticalInformations);
 	float CalculatePathLength(TArray<const UGraphNode*> path);
 
 	PathfindingDebugInformation* GetDebugInfo();
+	PathfindingDebugInformation debugInfo;
 protected:
 	virtual void BeginPlay() override;
 
@@ -38,7 +39,5 @@ private:
 	UGraphNodeNetwork* graphController;
 	TArray<UGraphNode*> graph;
 
-	PathfindingDebugInformation debugInfo;
-
-	void DrawNodes(TArray<const UGraphNode*> path, FColor color, bool connect);
+	void DrawNodes(TArray<UPathNode*> path, FColor color, bool connect);
 };

@@ -33,6 +33,7 @@ TArray<UGraphNode*> UGraphNodeNetwork::CreateNetwork()
 	GetRoomSize();
 	GenerateNetwork(navSys);
 	CreateMovementNetwork(navSys);
+	CreateViewNetwork();
 	return nodes;
 }
 
@@ -152,3 +153,31 @@ void UGraphNodeNetwork::CreateMovementNetwork(const UNavigationSystemV1* navSys)
 		}
 	}
 }
+
+void UGraphNodeNetwork::CreateViewNetwork()
+{
+	for (UGraphNode* node : nodes)
+	{
+		for (UGraphNode* otherNode : nodes)
+		{
+			if (node == otherNode || node->GetInViewNodes().Contains(otherNode) || node->GetOutOfViewNodes().Contains(otherNode))
+			{
+				continue;
+			}
+			FHitResult hitResult = FHitResult();
+			FCollisionQueryParams collisionParams;
+			FCollisionResponseParams collisionResponseParams = FCollisionResponseParams(ECollisionResponse::ECR_Overlap);
+			if (!GetWorld()->LineTraceSingleByChannel(hitResult, node->GetCoordinates(), otherNode->GetCoordinates(), ECC_WorldDynamic, ECollisionChannel::ECC_WorldStatic))
+			{
+				node->AddInViewNode(otherNode, hitResult.Distance);
+				otherNode->AddInViewNode(node, hitResult.Distance);
+			}
+			else
+			{
+				node->AddOutOfViewNode(otherNode);
+				otherNode->AddOutOfViewNode(node);
+			}
+		}
+	}
+}
+

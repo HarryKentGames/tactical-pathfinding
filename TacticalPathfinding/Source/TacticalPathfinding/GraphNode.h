@@ -18,14 +18,23 @@ public:
 	//Getters and Setters:
 	void SetCoordinates(FVector coordinates);
 	FVector GetCoordinates() const;
-	int GetIndex();
+	int GetIndex() const;
 	void AddNeighbour(UGraphNode* neighbour, float distance);
 	TMap<UGraphNode*, float> GetNeighbours() const;
+	void AddInViewNode(UGraphNode* node, float distance);
+	TMap<UGraphNode*, float> GetInViewNodes() const;
+	void AddOutOfViewNode(UGraphNode* node);
+	TSet<UGraphNode*> GetOutOfViewNodes() const;
+
 
 private:
 	UPROPERTY()
 	FVector coordinates;
 	int index;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TMap<UGraphNode*, float> neighbours;
+	UPROPERTY(VisibleAnywhere)
+	TMap<UGraphNode*, float> inViewNodes;
+	UPROPERTY(VisibleAnywhere)
+	TSet<UGraphNode*> outOfViewNodes;
 };

@@ -36,9 +36,18 @@ void UInfluenceMapPropagator::SetInfluenceMap(std::vector<float> influenceMapToS
 	influenceMap = influenceMapToSet;
 }
 
+std::vector<float> UInfluenceMapPropagator::GetViewMap()
+{
+	return viewMap;
+}
+
+void UInfluenceMapPropagator::SetViewMap(std::vector<float> viewMapToSet)
+{
+	viewMap = viewMapToSet;
+}
+
 void UInfluenceMapPropagator::UpdatePropagator()
 {
-
 	//Get the location at the feet of the propagator:
 	FVector boundsOrigin = FVector();
 	FVector boundsExtents = FVector();
@@ -105,6 +114,15 @@ void UInfluenceMapPropagator::PropagateInfluenceMap()
 	}
 	//Update the influence map:
 	SetInfluenceMap(influenceMapBuffer);
+
+	std::vector<float> newViewMap = std::vector<float>(influenceMap.size());
+	TArray<UGraphNode*> inViewNodes;
+	currentNode->GetInViewNodes().GenerateKeyArray(inViewNodes);
+	for (UGraphNode* inViewNode : inViewNodes)
+	{
+		newViewMap[inViewNode->GetIndex()] = 1.0f;
+	}
+	SetViewMap(newViewMap);
 }
 
 float UInfluenceMapPropagator::GetInfluenceRange()

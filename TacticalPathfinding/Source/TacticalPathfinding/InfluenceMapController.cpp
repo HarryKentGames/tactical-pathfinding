@@ -49,6 +49,7 @@ void UInfluenceMapController::AddPropagator(UInfluenceMapPropagator* propagatorT
 {
 	propagators.Add(propagatorToAdd);
 	propagatorToAdd->SetInfluenceMap(std::vector<float>(nodes.Num()));
+	propagatorToAdd->SetViewMap(std::vector<float>(nodes.Num()));
 }
 
 void UInfluenceMapController::RemovePropagator(UInfluenceMapPropagator* propagatorToRemove)
@@ -200,6 +201,42 @@ void UInfluenceMapController::GetDirectedVulnerabilityMap(UInfluenceMapPropagato
 		influenceMap[i] = tensionMap[i] * completeInfluenceMap[i];
 	}
 }
+
+void UInfluenceMapController::GetPropagatorLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap)
+{
+	LOSMap = propagator->GetViewMap();
+}
+
+void UInfluenceMapController::GetPropagatorAllyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask)
+{
+	for (UInfluenceMapPropagator* p : propagators)
+	{
+		if (propagator->GetTeam() == p->GetTeam() || teamMask.Contains(p->GetTeam()))
+		{
+			std::vector<float> pLOSMap = p->GetViewMap();
+			for (int i = 0; i < LOSMap.size(); i++)
+			{
+				LOSMap[i] += pLOSMap[i];
+			}
+		}
+	}
+}
+
+void UInfluenceMapController::GetPropagatorEnemyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask)
+{
+	for (UInfluenceMapPropagator* p : propagators)
+	{
+		if (propagator->GetTeam() != p->GetTeam() && teamMask.Contains(p->GetTeam()))
+		{
+			std::vector<float> pLOSMap = p->GetViewMap();
+			for (int i = 0; i < LOSMap.size(); i++)
+			{
+				LOSMap[i] += pLOSMap[i];
+			}
+		}
+	}
+}
+
 void UInfluenceMapController::DebugDraw()
 {
 	if (propagators.Num() > 0)
@@ -210,7 +247,7 @@ void UInfluenceMapController::DebugDraw()
 		FColor blue = FColor(0, 0, 255);
 		FColor cyan = FColor(0, 255, 255);
 
-		GetPropagatorEnemyInfluenceMap(propagators[0], influenceMap, propagators[0]->GetEnemyTeams());
+		GetPropagatorAllyLOSMap(propagators[1], influenceMap, propagators[1]->GetAlliedTeams());
 		
 		NormaliseInfluenceMap(influenceMap);
 

@@ -40,6 +40,33 @@ public:
 };
 
 UCLASS()
+class TACTICALPATHFINDING_API UPathNode : public UObject
+{
+	GENERATED_BODY()
+
+public:
+	const UGraphNode* node;
+	float costFromPrevious;
+
+	UPathNode()
+	{
+	};
+
+	static UPathNode* MAKE(const UGraphNode* node, float costFromPrevious)
+	{
+		UPathNode* pathNode = NewObject<UPathNode>();
+		pathNode->Init(node, costFromPrevious);
+		return pathNode;
+	};
+
+	void Init(const UGraphNode* nodeValue, float costFromPreviousValue)
+	{
+		node = nodeValue;
+		costFromPrevious = costFromPreviousValue;
+	}
+};
+
+UCLASS()
 class TACTICALPATHFINDING_API UTacticalPathfinder : public UObject
 {
 	GENERATED_BODY()
@@ -48,6 +75,6 @@ public:
 	UTacticalPathfinder();
 	~UTacticalPathfinder();
 
-	static TArray<const UGraphNode*> FindTacticalPath(TArray<UGraphNode*> graph, UGraphNode* start, UGraphNode* end, Heuristic* heuristic, TArray<TacticalInformation*> tacticalInformations, TArray<const UGraphNode*>& visitedNodes);
+	static TArray<UPathNode*> FindTacticalPath(TArray<UGraphNode*> graph, UGraphNode* start, UGraphNode* end, Heuristic* heuristic, TArray<TacticalInformation*> tacticalInformations, TArray<const UGraphNode*>& visitedNodes);
 
 };

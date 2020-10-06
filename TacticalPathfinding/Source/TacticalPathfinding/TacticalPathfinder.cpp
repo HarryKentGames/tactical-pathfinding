@@ -8,7 +8,7 @@ UTacticalPathfinder::~UTacticalPathfinder()
 {
 }
 
-TArray<const UGraphNode*> UTacticalPathfinder::FindTacticalPath(TArray<UGraphNode*> graph, UGraphNode* start, UGraphNode* end, Heuristic* heuristic, TArray<TacticalInformation*> tacticalInformations, TArray<const UGraphNode*>& visitedNodes)
+TArray<UPathNode*> UTacticalPathfinder::FindTacticalPath(TArray<UGraphNode*> graph, UGraphNode* start, UGraphNode* end, Heuristic* heuristic, TArray<TacticalInformation*> tacticalInformations, TArray<const UGraphNode*>& visitedNodes)
 {
 	//Initialise the record for the starting node:
 	UTacticalNodeRecord* startRecord = UTacticalNodeRecord::MAKE(start, nullptr, 0.0f, heuristic->Estimate(start));
@@ -99,18 +99,20 @@ TArray<const UGraphNode*> UTacticalPathfinder::FindTacticalPath(TArray<UGraphNod
 	//If the current record is for the end node, there is a valid path, otherwise there is not:
 	if (currentRecord->node != end)
 	{
-		return TArray<const UGraphNode*>();
+		return TArray<UPathNode*>();
 	}
 	else
 	{
-		TArray<const UGraphNode*> path;
+		TArray<UPathNode*> path;
 		//Loop over the found path, adding the nodes in reverse order to form the path in the correct direction:
 		while (currentRecord->node != start)
 		{
-			path.EmplaceAt(0, currentRecord->node);
+			UPathNode* nextNode = UPathNode::MAKE(currentRecord->node, currentRecord->costSoFar - currentRecord->connectedNode->costSoFar);
+			path.EmplaceAt(0, nextNode);
 			currentRecord = currentRecord->connectedNode;
 		}
-		path.EmplaceAt(0, currentRecord->node);
+		UPathNode* startNode = UPathNode::MAKE(currentRecord->node, 0);
+		path.EmplaceAt(0, startNode);
 		return path;
 	}
 }

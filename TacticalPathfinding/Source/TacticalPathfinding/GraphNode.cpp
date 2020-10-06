@@ -33,7 +33,7 @@ FVector UGraphNode::GetCoordinates() const
 	return coordinates;
 }
 
-int UGraphNode::GetIndex()
+int UGraphNode::GetIndex() const
 {
 	return index;
 }
@@ -46,4 +46,24 @@ void UGraphNode::AddNeighbour(UGraphNode* neighbour, float distance)
 TMap<UGraphNode*, float> UGraphNode::GetNeighbours() const
 {
 	return neighbours;
+}
+
+void UGraphNode::AddInViewNode(UGraphNode* node, float distance)
+{
+	inViewNodes.Add(node, distance);
+}
+
+TMap<UGraphNode*, float> UGraphNode::GetInViewNodes() const
+{
+	return inViewNodes;
+}
+
+void UGraphNode::AddOutOfViewNode(UGraphNode* node)
+{
+	outOfViewNodes.Add(node);
+}
+
+TSet<UGraphNode*> UGraphNode::GetOutOfViewNodes() const
+{
+	return outOfViewNodes;
 }

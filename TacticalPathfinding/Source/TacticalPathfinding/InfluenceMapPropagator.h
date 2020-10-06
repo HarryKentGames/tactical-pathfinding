@@ -28,6 +28,8 @@ public:
 	std::vector<float> GetInfluenceMap();
 	void SetInfluenceMap(std::vector<float> influenceMapToSet);
 	float GetInfluenceRange();
+	std::vector<float> GetViewMap();
+	void SetViewMap(std::vector<float> viewMapToSet);
 	Team GetTeam();
 	TArray<Team> GetAlliedTeams();
 	TArray<Team> GetEnemyTeams();
@@ -52,5 +54,6 @@ private:
 	TArray<TEnumAsByte<Team>> enemies;
 
 	std::vector<float> influenceMap;
+	std::vector<float> viewMap;
 	FVector previousLocation;
 };
