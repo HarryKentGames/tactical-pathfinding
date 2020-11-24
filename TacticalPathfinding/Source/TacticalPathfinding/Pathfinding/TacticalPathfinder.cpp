@@ -34,7 +34,7 @@ TArray<UPathNode*> UTacticalPathfinder::FindTacticalPath(TArray<UGraphNode*> gra
 			{
 				continue;
 			}
-			//Get the cost estimate for the neighbour:
+			//Get the cost estimate for the neighbour by using the tactical information:
 			float tacticalValue = 0;
 			for (int i = 0; i < tacticalInformations.Num(); i++)
 			{

@@ -39,6 +39,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
 private:
 	UInfluenceMapController* influenceMapController;
 	UGraphNode* currentNode;

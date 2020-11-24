@@ -31,10 +31,13 @@ AvoidEnemyTacticalInformation::~AvoidEnemyTacticalInformation()
 
 void AvoidEnemyTacticalInformation::UpdateTacticalMap()
 {
+	//Reset the tactical maps:
 	tacticalMap = std::vector<float>(propagator->GetInfluenceMapController()->GetNodes().Num());
 	std::vector<float> LOSMap = std::vector<float>(propagator->GetInfluenceMapController()->GetNodes().Num());
-	propagator->GetInfluenceMapController()->GetPropagatorEnemyInfluenceMap(propagator, tacticalMap, propagator->GetEnemyTeams());
-	propagator->GetInfluenceMapController()->GetPropagatorEnemyLOSMap(propagator, LOSMap, propagator->GetEnemyTeams());
+	//Get the enemy teams influences, and observable areas:
+	propagator->GetInfluenceMapController()->GetPropagatorEnemyInfluenceMap(propagator, tacticalMap);
+	propagator->GetInfluenceMapController()->GetPropagatorEnemyLOSMap(propagator, LOSMap);
+	//Add the two maps together:
 	for (int i = 0; i < tacticalMap.size(); i++)
 	{
 		tacticalMap[i] += LOSMap[i];

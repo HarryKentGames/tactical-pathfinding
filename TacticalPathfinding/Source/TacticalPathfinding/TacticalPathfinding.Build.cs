@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System.IO;
 using UnrealBuildTool;
 
 public class TacticalPathfinding : ModuleRules
@@ -14,12 +15,12 @@ public class TacticalPathfinding : ModuleRules
 
 		PublicIncludePaths.AddRange(
 			new string[] {
-			"TacticalPathfinding/AIs",
-			"TacticalPathfinding/Graph",
-			"TacticalPathfinding/InfluenceMapping",
-			"TacticalPathfinding/Pathfinding"
-			 }
-		 );
+			Path.Combine(ModuleDirectory, "AIs"),
+			Path.Combine(ModuleDirectory, "Graph"),
+			Path.Combine(ModuleDirectory, "InfluenceMapping"),
+			Path.Combine(ModuleDirectory, "Pathfinding")
+			}
+		);
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

@@ -10,10 +10,8 @@ void AGuardAIController::BeginPlay()
 
 void AGuardAIController::OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
 {
-    aiSettings->currentWaypointIndex++;
-    if (aiSettings->currentWaypointIndex >= aiSettings->waypoints.Num())
-    {
-        aiSettings->currentWaypointIndex = 0;
-    }
+    //Increment waypoint, loop around to 0 if goes beyond score of waypoint list:
+    aiSettings->currentWaypointIndex = ++(aiSettings->currentWaypointIndex) < aiSettings->waypoints.Num() ? aiSettings->currentWaypointIndex : 0;
+    //Move to new Waypoint:
     Super::MoveToLocation(aiSettings->waypoints[aiSettings->currentWaypointIndex], 20.0f, true, true, true, true);
 }

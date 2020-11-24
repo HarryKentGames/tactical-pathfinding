@@ -37,16 +37,16 @@ public:
 	void NormaliseInfluenceMap(std::vector<float>& influenceMap);
 	void GetPropagatorInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
 	void GetPropagatorTeamInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
-	void GetPropagatorAllyInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> teamMask);
-	void GetPropagatorEnemyInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> teamMask);
-	void GetCompleteInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> alliedTeamMask, TArray<Team> enemyTeamMask);
-	void GetTensionMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> alliedTeamMask, TArray<Team> enemyTeamMask);
-	void GetVulnerabilityMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> alliedTeamMask, TArray<Team> enemyTeamMask);
-	void GetDirectedVulnerabilityMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap, TArray<Team> alliedTeamMask, TArray<Team> enemyTeamMask);
+	void GetPropagatorAllyInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
+	void GetPropagatorEnemyInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
+	void GetCompleteInfluenceMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
+	void GetTensionMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
+	void GetVulnerabilityMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
+	void GetDirectedVulnerabilityMap(UInfluenceMapPropagator* propagator, std::vector<float>& influenceMap);
 
 	void GetPropagatorLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap);
-	void GetPropagatorAllyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask);
-	void GetPropagatorEnemyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask);
+	void GetPropagatorAllyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap);
+	void GetPropagatorEnemyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap);
 
 protected:
 	virtual void BeginPlay() override;

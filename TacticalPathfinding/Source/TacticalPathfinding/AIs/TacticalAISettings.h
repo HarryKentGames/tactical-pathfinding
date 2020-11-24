@@ -12,7 +12,6 @@ class TACTICALPATHFINDING_API UTacticalAISettings : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	UTacticalAISettings();
 	UPROPERTY(EditAnywhere)
 	class AActor* destination;
 	UInfluenceMapPropagator* destinationPropagator;
@@ -20,11 +19,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	float pathfinderRefreshInterval;
 
-protected:
-	virtual void BeginPlay() override;
-
-public:	
+	UTacticalAISettings();
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	
+protected:
+	virtual void BeginPlay() override;	
 };

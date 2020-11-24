@@ -156,22 +156,28 @@ void UGraphNodeNetwork::CreateMovementNetwork(const UNavigationSystemV1* navSys)
 
 void UGraphNodeNetwork::CreateViewNetwork()
 {
+	//Loop over all nodes:
 	for (UGraphNode* node : nodes)
 	{
+		//Loop over all other nodes:
 		for (UGraphNode* otherNode : nodes)
 		{
+			//Ignore pairs that have already been compared:
 			if (node == otherNode || node->GetInViewNodes().Contains(otherNode) || node->GetOutOfViewNodes().Contains(otherNode))
 			{
 				continue;
 			}
+			//Raycast between the nodes:
 			FHitResult hitResult = FHitResult();
 			FCollisionQueryParams collisionParams;
 			FCollisionResponseParams collisionResponseParams = FCollisionResponseParams(ECollisionResponse::ECR_Overlap);
+			//If the raycast is not blocked, nodes are in view of each other:
 			if (!GetWorld()->LineTraceSingleByChannel(hitResult, node->GetCoordinates(), otherNode->GetCoordinates(), ECC_WorldDynamic, ECollisionChannel::ECC_WorldStatic))
 			{
 				node->AddInViewNode(otherNode, hitResult.Distance);
 				otherNode->AddInViewNode(node, hitResult.Distance);
 			}
+			//Else if the raycast is blocked, nodes are not in view of eachother:
 			else
 			{
 				node->AddOutOfViewNode(otherNode);

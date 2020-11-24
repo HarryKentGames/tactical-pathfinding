@@ -117,11 +117,14 @@ void UInfluenceMapPropagator::PropagateInfluenceMap()
 
 	std::vector<float> newViewMap = std::vector<float>(influenceMap.size());
 	TArray<UGraphNode*> inViewNodes;
+	//Get all the nodes in view from the current node:
 	currentNode->GetInViewNodes().GenerateKeyArray(inViewNodes);
+	//Set each in-view node to being in-view
 	for (UGraphNode* inViewNode : inViewNodes)
 	{
 		newViewMap[inViewNode->GetIndex()] = 1.0f;
 	}
+	//Update the view map:
 	SetViewMap(newViewMap);
 }
 

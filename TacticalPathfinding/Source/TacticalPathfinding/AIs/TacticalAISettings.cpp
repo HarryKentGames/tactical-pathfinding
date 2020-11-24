@@ -8,6 +8,7 @@ UTacticalAISettings::UTacticalAISettings()
 void UTacticalAISettings::BeginPlay()
 {
 	Super::BeginPlay();
+	//Get the destination's propagator:
 	if (destination != nullptr)
 	{
 		destinationPropagator = destination->FindComponentByClass<UInfluenceMapPropagator>();

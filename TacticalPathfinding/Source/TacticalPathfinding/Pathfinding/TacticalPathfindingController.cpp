@@ -30,14 +30,9 @@ TArray<UPathNode*> UTacticalPathfindingController::RunPathfinding(int startIndex
 {
 	if (startIndex >= 0 && startIndex < graph.Num() && endIndex >= 0 && endIndex < graph.Num())
 	{
-		auto start = std::chrono::high_resolution_clock::now();
 		TArray<const UGraphNode*> visitedNodes = TArray<const UGraphNode*>();
-		TArray<UPathNode*> path = UTacticalPathfinder::FindTacticalPath(graph, graph[startIndex], graph[endIndex], new EuclideanDistance(graph[endIndex]), tacticalInformations, visitedNodes);;
-		auto end = std::chrono::high_resolution_clock::now();
+		TArray<UPathNode*> path = UTacticalPathfinder::FindTacticalPath(graph, graph[startIndex], graph[endIndex], new EuclideanDistance(graph[endIndex]), tacticalInformations, visitedNodes);
 
-		debugInfo.timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-		debugInfo.path = path;
-		debugInfo.visitedNodes = visitedNodes;
 		return path;
 	}
 	return TArray<UPathNode*>();
@@ -53,17 +48,6 @@ float UTacticalPathfindingController::CalculatePathLength(TArray<const UGraphNod
 	return pathLength;
 }
 
-PathfindingDebugInformation* UTacticalPathfindingController::GetDebugInfo()
-{
-	return &debugInfo;
-}
-
-void UTacticalPathfindingController::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	DrawNodes(debugInfo.path, FColor::Red, true);
-}
-
 void UTacticalPathfindingController::DrawNodes(TArray<UPathNode*> path, FColor color, bool connect)
 {
 	for (int i = 0; i < path.Num(); i++)
@@ -74,5 +58,10 @@ void UTacticalPathfindingController::DrawNodes(TArray<UPathNode*> path, FColor c
 			DrawDebugLine(GetWorld(), path[i]->node->GetCoordinates(), path[i + 1]->node->GetCoordinates(), color, false, 0.0f);
 		}
 	}
+}
+
+void UTacticalPathfindingController::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
