@@ -48,8 +48,6 @@ public:
 	void GetPropagatorAllyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask);
 	void GetPropagatorEnemyLOSMap(UInfluenceMapPropagator* propagator, std::vector<float>& LOSMap, TArray<Team> teamMask);
 
-	void DebugDraw();
-
 protected:
 	virtual void BeginPlay() override;
 

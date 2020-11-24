@@ -12,9 +12,18 @@ public class TacticalPathfinding : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+		PublicIncludePaths.AddRange(
+			new string[] {
+			"TacticalPathfinding/AIs",
+			"TacticalPathfinding/Graph",
+			"TacticalPathfinding/InfluenceMapping",
+			"TacticalPathfinding/Pathfinding"
+			 }
+		 );
+
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-		
+
 		// Uncomment if you are using online features
 		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
 
