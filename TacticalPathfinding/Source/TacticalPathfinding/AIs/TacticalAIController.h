@@ -25,4 +25,5 @@ private:
 	TArray<TacticalInformation*> stealthTacticalInformation;
 	TArray<UPathNode*> path;
 	float timeSinceLastPathfinderRefresh;
+	float timeSinceStart;
 };

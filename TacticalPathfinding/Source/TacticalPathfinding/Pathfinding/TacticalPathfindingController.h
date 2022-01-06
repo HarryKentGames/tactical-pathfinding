@@ -23,6 +23,7 @@ public:
 	TArray<UPathNode*> RunPathfinding(int startIndex, int endIndex, TArray<TacticalInformation*> tacticalInformations);
 	float CalculatePathLength(TArray<const UGraphNode*> path);
 	void DrawNodes(TArray<UPathNode*> path, FColor color, bool connect);
+	void DrawTacticalInformation(TArray<TacticalInformation*> tacticalInformations, FColor color);
 
 protected:
 	virtual void BeginPlay() override;

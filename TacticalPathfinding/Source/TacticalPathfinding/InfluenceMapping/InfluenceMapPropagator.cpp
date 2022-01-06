@@ -1,4 +1,5 @@
 #include "InfluenceMapPropagator.h"
+#include <Runtime/Engine/Classes/Kismet/KismetMathLibrary.h>
 
 UInfluenceMapPropagator::UInfluenceMapPropagator()
 {
@@ -122,7 +123,15 @@ void UInfluenceMapPropagator::PropagateInfluenceMap()
 	//Set each in-view node to being in-view
 	for (UGraphNode* inViewNode : inViewNodes)
 	{
-		newViewMap[inViewNode->GetIndex()] = 1.0f;
+		FVector dir = inViewNode->GetCoordinates() - currentNode->GetCoordinates();
+		FVector actorForward = this->GetOwner()->GetActorForwardVector();
+		dir.Normalize();
+		actorForward.Normalize();
+		float angle = FMath::RadiansToDegrees(-atan2(dir.X * actorForward.Y - dir.Y * actorForward.X, dir.X * actorForward.X + dir.Y * actorForward.Y));
+		if (angle <= 80 && angle >= -80)
+		{
+			newViewMap[inViewNode->GetIndex()] = 1.0f;
+		}
 	}
 	//Update the view map:
 	SetViewMap(newViewMap);

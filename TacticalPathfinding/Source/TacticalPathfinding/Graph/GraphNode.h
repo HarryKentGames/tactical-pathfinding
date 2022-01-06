@@ -28,7 +28,7 @@ public:
 
 
 private:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	FVector coordinates;
 	int index;
 	UPROPERTY(VisibleAnywhere)

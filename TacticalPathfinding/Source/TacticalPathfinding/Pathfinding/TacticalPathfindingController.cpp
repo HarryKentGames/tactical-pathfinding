@@ -52,10 +52,27 @@ void UTacticalPathfindingController::DrawNodes(TArray<UPathNode*> path, FColor c
 {
 	for (int i = 0; i < path.Num(); i++)
 	{
-		DrawDebugPoint(GetWorld(), path[i]->node->GetCoordinates(), 10, color, false, 0.0f);
+		DrawDebugPoint(GetWorld(), path[i]->node->GetCoordinates(), 10, color, false, 0.0f, 1);
 		if (connect && i < path.Num() - 1)
 		{
-			DrawDebugLine(GetWorld(), path[i]->node->GetCoordinates(), path[i + 1]->node->GetCoordinates(), color, false, 0.0f);
+			DrawDebugLine(GetWorld(), path[i]->node->GetCoordinates(), path[i + 1]->node->GetCoordinates(), color, false, 0.0f, 1);
+		}
+	}
+}
+
+void UTacticalPathfindingController::DrawTacticalInformation(TArray<TacticalInformation*> tacticalInformations, FColor color)
+{
+	TArray<UGraphNode*> nodes = graphController->GetNodes();
+	for (int i = 0; i < nodes.Num(); i++)
+	{
+		float tacticalValue = 0;
+		for (int j = 0; j < tacticalInformations.Num(); j++)
+		{
+			tacticalValue += (tacticalInformations[j]->GetQualityAtIndex(nodes[i]->GetIndex()));
+		}
+		if (tacticalValue > 0.0f)
+		{
+			DrawDebugPoint(GetWorld(), nodes[i]->GetCoordinates(), 10, color, false, 0.0f);
 		}
 	}
 }
